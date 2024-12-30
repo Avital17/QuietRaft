@@ -1,0 +1,19 @@
+[
+    {
+      "title": "סדנת מדיטציה",
+      "date": "2024-12-20",
+      "location": "תל אביב",
+      "description": "סדנה להרגעת הנפש.",
+      "latitude": 32.0853,
+      "longitude": 34.7818
+    },
+    {
+        "id": 1,
+        "title": "אירוע 1",
+        "date": "2024-12-25",
+        "location": "נתיבות",
+        "latitude": 31.5073,
+        "longitude": 34.5777,
+        "image": "raft.jpeg"
+      }
+  ]
