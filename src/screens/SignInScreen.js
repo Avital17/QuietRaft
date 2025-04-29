@@ -12,11 +12,11 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { COLORS } from "../FixeDesign/desi";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import Button from "../components/Button";
 import { getDoc, doc } from "firebase/firestore";
 import { get, ref } from "firebase/database";
-import { db } from "../firebase"; // יש לוודא ש`db` מאופשר
+import { db } from "../../firebase"; // יש לוודא ש`db` מאופשר
 
 
 const SignInScreen = () => {
@@ -96,11 +96,18 @@ const SignInScreen = () => {
         </View>
 
         <View style={styles.signupContainer}>
-          <Text style={styles.signupText}>לא קיים משתמש?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")}>
-            <Text style={styles.signupLink}> הרשמה </Text>
-          </TouchableOpacity>
-        </View>
+  <Text style={styles.signupText}>
+    לא קיים משתמש?
+    <Text> </Text>
+    <Text
+      style={styles.signupLink}
+      onPress={() => navigation.navigate("SignUpScreen")}
+    >
+      הרשמה
+    </Text>
+  </Text>
+</View>
+
       </View>
     </View>
   );
@@ -136,13 +143,13 @@ const styles = StyleSheet.create({
     formContainer: {
       flex: 1,
       backgroundColor: "white",
-      paddingHorizontal: 16,
+      paddingHorizontal: 19,
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
-      marginTop: 100, // הגדלתי את ה-marginTop להורדה נוספת של התבנית למטה
+      marginTop: 90, // הגדלתי את ה-marginTop להורדה נוספת של התבנית למטה
     },
     form: {
-      paddingTop: 8,
+      paddingTop: 20,
       paddingBottom: 16,
     },
     formLabel: {
@@ -157,6 +164,7 @@ const styles = StyleSheet.create({
       color: "#475569",
       borderRadius: 10,
       marginBottom: 16,
+      textAlign: "right",
     },
     forgotPassword: {
       flex: 1,
@@ -185,6 +193,7 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "center",
       marginTop: 7,
+      textAlign: 'right',
     },
     signupText: {
       color: "#475569",
@@ -194,6 +203,7 @@ const styles = StyleSheet.create({
       color: COLORS.buttonColor,
       fontWeight: "600",
       marginLeft: 4,
+      
     },
   });
 export default SignInScreen;

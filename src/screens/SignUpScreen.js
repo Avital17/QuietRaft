@@ -15,7 +15,7 @@ import {
   import React, { useState } from "react";
   import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
   import { addDoc, collection, getFirestore } from "firebase/firestore";
-  import { auth, database } from "../firebase"
+  import { auth, database } from "../../firebase"
   import { getDatabase, ref, set } from "firebase/database";
   import { Alert } from "react-native";
   import Button from "../components/Button";
@@ -36,11 +36,43 @@ import {
     const auth = getAuth();
     const db = getFirestore();
   
+    const isValidEmail = (email) => {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidName = (name) => {
+      const nameRegex = /^[A-Za-zא-ת]+$/; // מאפשר רק אותיות באנגלית ובעברית
+      return nameRegex.test(name);
+    };
+    
     const handleSubmit = async () => {
       if (!email || !password || !firstName || !lastName) {
-        Alert.alert("אנא מלא את כל השדות הדרושים");
+        Alert.alert("שגיאה", "אנא מלא את כל השדות הדרושים");
         return;
       }
+    
+      if (!isValidName(firstName)) {
+        Alert.alert("שגיאה", "שם פרטי יכול להכיל רק אותיות בעברית או באנגלית");
+        return;
+      }
+    
+      if (!isValidName(lastName)) {
+        Alert.alert("שגיאה", "שם משפחה יכול להכיל רק אותיות בעברית או באנגלית");
+        return;
+      }
+    
+      if (!isValidEmail(email)) {
+        Alert.alert("שגיאה", "האימייל שהזנת אינו תקין");
+        return;
+      }
+    
+      if (password.length < 8) {
+        Alert.alert("שגיאה", "הסיסמה חייבת להכיל לפחות 8 תווים");
+        return;
+      }
+
+
     
       setIsLoading(true); // הפעל טעינה
     
@@ -82,10 +114,7 @@ import {
         setIsLoading(false); // עצור טעינה
       }
     };
-    const isValidEmail = (email) => {
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-      return emailRegex.test(email);
-    };
+    
   
     const pageFormView = () => {
       return (

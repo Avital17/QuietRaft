@@ -8,9 +8,14 @@ import SignUpScreen from "../screens/SignUpScreen";
 import UserHomeScreen from "../screens/UserHomeScreen";
 import NearbyEventsScreen from "../screens/NearbyEventsScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
- // ייבוא המסך החדש
+import RightsInfoScreen from "../screens/RightsInfoScreen";
+import ExternalArticlesScreen from "../screens/ExternalArticlesScreen";
+import RightsListScreen from "../screens/RightsListScreen";
+import SupportCentersScreen from "../screens/SupportCentersScreen";
+import Meditation from "../screens/Meditation";
+import ChatScreen from "../screens/ChatScreen";
 
-import { auth } from "../firebase"; // ייבוא Firebase
+import { auth } from "../../firebase"; // ייבוא Firebase
 
 const Stack = createNativeStackNavigator();
 
@@ -55,9 +60,38 @@ export default function AppNavigation() {
           options={{ headerShown: false }}
           component={NearbyEventsScreen}
         />
-         
-  
-      </Stack.Navigator>
+        <Stack.Screen
+          name="RightsInfoScreen"
+          options={{ headerShown: false }}
+          component={RightsInfoScreen}
+        />
+        <Stack.Screen
+          name="ExternalArticlesScreen"
+          options={{ headerShown: false }}
+          component={ExternalArticlesScreen}
+        />
+         <Stack.Screen
+          name="RightsListScreen"
+          options={{ headerShown: false }}
+          component={RightsListScreen}
+        />
+         <Stack.Screen
+          name="SupportCentersScreen"
+          options={{ headerShown: false }}
+          component={SupportCentersScreen}
+        />
+        <Stack.Screen
+          name="Meditation"
+          options={{ headerShown: false }}
+          component={Meditation}
+        />
+         <Stack.Screen
+          name="ChatScreen"
+          options={{ headerShown: false }}
+          component={ChatScreen}
+        />
+
+    </Stack.Navigator>
     </NavigationContainer>
   );
-}
+} 

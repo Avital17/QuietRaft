@@ -24,10 +24,6 @@ const UserHomeScreen = () => {
   const [contactPhone, setContactPhone] = useState("");
   const [isEmergencyModalVisible, setIsEmergencyModalVisible] = useState(false);
 
-
-
-
-  
   // States לעדכון פרופיל
   const [newFirstName, setNewFirstName] = useState("");
   const [newLastName, setNewLastName] = useState("");
@@ -161,7 +157,7 @@ const UserHomeScreen = () => {
       // לאחר ההתנתקות, מאפסים את הניווט למסך ההתחברות
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Login' }]
+        routes: [{ name: 'WelcomeScreen' }]
       });
     } catch (error) {
       Alert.alert("⚠️ שגיאה", "אירעה שגיאה בעת ההתנתקות.");
@@ -188,6 +184,7 @@ const UserHomeScreen = () => {
       );
     }
   };
+
   
 
   return (
@@ -213,6 +210,7 @@ const UserHomeScreen = () => {
         <Text style={styles.iconText}>מגן דוד אדום</Text>
       </TouchableOpacity>
       </View>
+  
       
       {/* קוביות אייקונים */}
       <ScrollView contentContainerStyle={styles.menu}>
@@ -273,6 +271,11 @@ const UserHomeScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
+        <Text style={styles.logoutText}>התנתקות</Text>
+      </TouchableOpacity>
+
+      
 
       {/* Modal של פרופיל */}
       <Modal visible={isModalVisible} animationType="slide" transparent={true} onRequestClose={() => setIsModalVisible(false)}>
@@ -291,9 +294,6 @@ const UserHomeScreen = () => {
                   <Text style={styles.modalButtonText}>איש קשר לחירום</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.modalButton} onPress={handleSignOut}>
-                  <Text style={styles.modalButtonText}>התנתקות</Text>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={() => setIsModalVisible(false)} style={styles.closeButton}>
                   <Text style={styles.closeButtonText}>סגור</Text>
                 </TouchableOpacity>
@@ -421,20 +421,48 @@ const UserHomeScreen = () => {
       </Modal>
         
         {/* Modal כפתור חירום */}
-      <Modal visible={isEmergencyModalVisible} animationType="fade" transparent={true}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.emergencyContainer}>
-            <Text style={styles.modalTitle}>מקרה חירום</Text>
+        <Modal visible={isEmergencyModalVisible} animationType="slide" transparent={true}>
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.modalOverlay}>
+      <View style={styles.modalContent}>
+        <Text style={styles.modalTitle}>שלבים</Text>
 
-        
-    
+        <ScrollView style={{ maxHeight: 368 }} contentContainerStyle={{ direction: 'rtl' }}>
+          <Text style={styles.label}> כאשר מרגישים הצפה ברגש חזק, כמו פחד, כעס או אפילו תקיפות לב חזקות — נשתמש בעש"ן ד"ק</Text>
 
-            <TouchableOpacity onPress={() => setIsEmergencyModalVisible(false)} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>סגור</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+          <Text style={styles.bulletItem}>
+           <Text style={styles.firstLetter}>ע</Text>צירה – עצור/י רגע, שים/י לב למה שעולה
+          </Text>
+          <View style={styles.separator} />
+
+          <Text style={styles.bulletItem}>
+          <Text style={styles.firstLetter}>ש</Text>חרור – שחרר/י שרירים ולחץ בגוף
+          </Text>
+          <View style={styles.separator} />
+
+          <Text style={styles.bulletItem}>
+          <Text style={styles.firstLetter}>נ</Text>שימה – נשימה עמוקה ואחריה כמה נשימות רגועות
+          </Text> 
+          <View style={styles.separator} />
+
+          <Text style={styles.bulletItem}>
+          <Text style={styles.firstLetter}>ד</Text>יבור פנימי – אמירה מרגיעה: "אני בטוח/ה", "זה יעבור"
+          </Text>
+          <View style={styles.separator} />
+
+          <Text style={styles.bulletItem}>
+          <Text style={styles.firstLetter}>ק</Text>דימה – פעולה מתוך בחירה, לא מתוך אוטומט
+          </Text>
+        </ScrollView>
+
+        <TouchableOpacity onPress={() => setIsEmergencyModalVisible(false)} style={styles.closeButton}>
+          <Text style={styles.closeButtonText}>סגור</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </TouchableWithoutFeedback>
+</Modal>
+
 
 
       {/* Modal פידבק */}
@@ -469,8 +497,11 @@ const UserHomeScreen = () => {
         </TouchableWithoutFeedback>
       </Modal>
     </View>
+
+    
   );
 };
+
 
 const MenuItem = ({ icon, title, onPress }) => (
   <TouchableOpacity style={styles.iconBox} onPress={onPress}>
@@ -588,13 +619,13 @@ const styles = StyleSheet.create({
     elevation: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '42%', // אפשר לשחק עם זה כדי להגדיר את גודל הקוביה
+    width: '42%', 
   },
   menuText: {
     fontSize: 15,
     color: '#005A8D',
     marginTop: 10,
-    textAlign: 'center', // למרכז את הטקסט בתוך הקוביה
+    textAlign: 'center', 
   },
   modalOverlay: {
     flex: 1,
@@ -604,15 +635,15 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    width: 300,
+    padding: 15,
+    borderRadius: 20,
+    width: 350,
     alignItems: 'center',
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 8,
   },
   modalButton: {
     backgroundColor: '#005A8D',
@@ -653,6 +684,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: "#333",
+    textAlign: 'left',
+    marginBottom: 15,
   },
   rating: {
     flexDirection: 'row',
@@ -696,6 +729,44 @@ const styles = StyleSheet.create({
     marginTop: 10,
 
   },
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#ccc',
+    marginVertical: 8,
+  },
+  bulletItem: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 10,
+    lineHeight: 26,
+    direction: 'rtl',
+  },
+  
+  firstLetter: {
+    fontSize: 24,          
+    color: '#005A8D',
+    fontWeight: 'bold',
+  },
+  logoutButton: {
+    backgroundColor: '#005A8D',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 25,
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 30,
+    elevation: 2
+  },
+  logoutText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
+  
+  
   
 });
 
